@@ -1,0 +1,113 @@
+/* This is a css file which contains all the components details and styles. */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,400&display=swap');
+*{
+    font-family: Poppins;
+}
+body{
+    background-color: rgb(54, 2, 79);
+    width:95%;
+    padding:20px;
+    color:white;
+}
+.navbar-container{
+    width:100%;
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    right: 0;
+    position:relative;
+}
+.navbar-links{
+    list-style-type: none;
+    display:flex;
+    padding: 1rem;
+}
+.navbar-links li{
+    margin-right: 1rem;
+    font-size:20px;
+    font-weight: bold;
+}
+.navbar-links a{
+    text-decoration: none;
+    color:white;
+}
+.getting-started{
+    color:white;
+    background-color:rgb(77, 10, 108);
+    color:white;
+    border-radius:40px;
+    border: 1px solid rgb(77, 10, 108);
+    width:150px;
+    height:60px;
+}
+.getting-started:hover{
+    transform:translateY(-5px);
+    transition: background-color .5s, transform .5s;
+    background-color:rgb(166, 28, 231);
+}
+.intro-image{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  display:block;
+  transition:transform 0.3s ease;
+}
+.intro-image:hover{
+    transform: scale(1.2);
+}
+.image-container{
+    position: relative;
+    display:inline-block;
+    overflow:hidden;
+    width:60%;
+    height:300px;
+}
+.words-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.features{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:30px;
+}
+.features > div{
+    border:1 px solid rgb(105, 62, 125);
+    border-radius:5px;
+    box-shadow: 10px;
+    width:30%;
+    padding:20px;
+    text-align: center;
+}
+.features i{
+    font-size:50px;
+}
+.features> div:hover{
+    box-shadow: 15px;
+    background-color: rgb(109, 68, 128);
+    transition: background-color .5s, box-shadow .5s;
+}
+.feature-words{
+    text-align:center;
+}
+.contact-info > i{
+    font-size:30px;
+    display:block;
+}
+.about{
+    display:flex;
+    justify-content: space-between;
+}
+.footer{
+    background-color: rgb(105, 62, 125);
+    color:rgb(192, 188, 188);
+}
+.carousel-container {
+    width: 100%; /* Adjust the width as needed */
+    overflow: hidden;
+    position: relative;
+    margin-block: 17%;
+  }
