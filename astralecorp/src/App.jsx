@@ -5,7 +5,6 @@ import Cont from './components/cont';
 import About from './components/about';
 import Products from './components/products';
 function App() {
-
   return (
     <>
       <Navbar />
