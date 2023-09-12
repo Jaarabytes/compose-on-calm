@@ -4,25 +4,24 @@ import "./components.css"
 function Navbar(){
     const elements = [
         {
-            label: "home", 
+            label: "Home", 
             url : "/home"
         },
         {
-            label: "projects", 
+            label: "Products", 
             url : "/projects"
         },
         {
-            label: "explore", 
+            label: "Explore", 
             url : "/explore"
         },
         {
-            label: "why us", 
+            label: "Why us", 
             url : "/why-us"
         }
     ];
     return(
-        <nav>
-            <div className="navbar-container">
+        <nav className="navbar-container">
                 {/* insert astralecorp image */}
                 <ul className="navbar-links">
                     {elements.map((elem, index) =>
@@ -31,7 +30,6 @@ function Navbar(){
                     </li>
                     )}
                 </ul>
-            </div>
         </nav>
     )
 }
