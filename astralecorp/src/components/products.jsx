@@ -1,4 +1,3 @@
-import React from 'react'; // Import React
 import './components.css'; // Import your CSS file
 
 function Products() {
@@ -30,14 +29,21 @@ function Products() {
     }
   ];
 
+
+  // MODIFY THIS SUCH THAT WHEN SCROLLED UPPOON IT BLURS OUT
   return (
+    <div className='products-container'>
+    <h1 style={{textAlign:"center"}}>OUR PRODUCTS:</h1>
     <div className="carousel-container">
-      <div className="carousel">
+      {/* <div className="carousel"> */}
         {items.map((elem, index) => (
           <div className="carousel-item" key={index}>
-            <h6>{elem.name}</h6>
+            <h3>{elem.name}</h3>
+            <div className='description'>
             <p>{elem.description}</p>
-            <p><a href={elem.url}>See project</a></p>
+            </div>
+            <hr />
+            <p className='link-to'><a href={elem.url}>See project</a></p>
           </div>
         ))}
       </div>
