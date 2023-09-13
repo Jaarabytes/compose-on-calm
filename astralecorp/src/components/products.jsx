@@ -1,5 +1,12 @@
-import './components.css'; // Import your CSS file
+import './components.css';
+import React from 'react';
+import { useInView } from "react-intersection-observer";
+
 function Products() {
+  const{ref, inView} = useInView({
+    triggerOnce:false,
+    rootMargin: "0px -250px"
+  })
 
   const items = [
     {
@@ -30,7 +37,7 @@ function Products() {
   ];
 
   return (
-    <div className='products-container'>
+    <div ref={ref} className={`products-container ${inView ? "animate" : ""}`}>
       <h1 style={{ textAlign: 'center' }}>OUR PRODUCTS:</h1>
       <div className="carousel-container">
         {items.map((elem, index) => (
