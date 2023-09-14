@@ -183,6 +183,7 @@ body{
     background-color:rgb(77, 45, 92);
     justify-content: space-between;
     display: flex;
+    padding-block: 30px;
 }
 .contact-info div{
     margin:auto;
@@ -214,12 +215,12 @@ body{
 }
 .icons > div{
     display:inline;
-    padding:10px;
+    padding:20px;
 }
 .about{
     display:flex;
     justify-content: space-between;
-    background-color:rgb(105, 62, 125);
+    background: linear-gradient(left, rgb(49, 1, 72), rgb(12, 4, 16));
     padding:20px;
 }
 .footer{
@@ -343,9 +344,7 @@ body{
 .team-member:nth-child(3){
     animation-delay: 2s;
 }
-.last-last{
-    min-height: 80vh;
-}
+
 @media screen and (max-width:850px){
     .carousel-container , .team{
         grid-template-columns: 1fr;
@@ -405,8 +404,17 @@ body{
     .navbar-container{
         text-align: start;
     }
+    .links{
+        font-size: 15px;
+    }
+    .icons > div{
+        padding:5px;
+    }
 }
 @media screen and (max-width:430px) {
+    .links{
+        font-size: 15px;
+    }
     .hidden-navbar{
         display:block;
         z-index: 99;
@@ -457,4 +465,7 @@ body{
     .features i{
         font-size:20px;
     }
+}
+.links{
+    font-size: 30px;
 }
