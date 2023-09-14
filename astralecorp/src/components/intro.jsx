@@ -15,7 +15,7 @@ return(
         </div>
     </div>
     <div className="image-container">
-        <img className="intro-image" src="../../pexels-markus-spiske-1089440.jpg" alt="code"></img>
+        <img className="intro-image" src="https://pngimg.com/uploads/hacker/hacker_PNG11.png" alt="code"></img>
     </div>
     </div>
 )

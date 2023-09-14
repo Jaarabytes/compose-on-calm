@@ -1,5 +1,6 @@
 // import React from "react";
-import "./components.css"
+import "./components.css";
+import React, { useState, useEffect } from "react";
 
 function Navbar(){
     const elements = [
@@ -20,17 +21,37 @@ function Navbar(){
             url : "/why-us"
         }
     ];
+    const [navbarOpen, setNavbarOpen] = useState(false);
+    function toggleClick(){
+        setNavbarOpen(!navbarOpen);
+    }
     return(
+        <>
         <nav className="navbar-container">
                 {/* insert astralecorp image */}
                 <ul className="navbar-links">
                     {elements.map((elem, index) =>
                     <li key={index}>
-                        <a href={elem.url}>{elem.label}</a>
+                        <a href={elem.url} className="item">{elem.label}</a>
                     </li>
                     )}
                 </ul>
         </nav>
+        
+        <button className="show-navbar"
+                onClick={toggleClick}
+                ><i className={`fas ${navbarOpen ? "fa-times" : "fa-bars"}`} ></i></button>
+        
+        <nav className={`${navbarOpen ? "hidden-navbar" : "non-hidden-navbar"}`}>
+                <div className="list">
+                    {elements.map((elem, index) =>
+                    <li key={index}>
+                        <a href={elem.url} className="item">{elem.label}</a>
+                    </li>
+                    )}
+                </div>
+        </nav>
+        </>
     )
 }
 export default Navbar;
