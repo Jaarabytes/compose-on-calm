@@ -4,8 +4,8 @@ import { useInView } from "react-intersection-observer";
 
 function Products() {
   const{ref, inView} = useInView({
-    triggerOnce:false,
-    rootMargin: "0px -250px"
+    triggerOnce:true,
+    rootMargin: "-50px 0px -50px 0px"
   })
 
   const items = [
@@ -21,7 +21,7 @@ function Products() {
     },
     {
       name: 'Breakthrough portal',
-      description: 'Designed the User Interface and Experience of the graduation website for PCA university, increasing speed and efficiency',
+      description: 'Designed the UI/UX of the graduation website for PCA university, increasing speed and efficiency',
       url: 'https://pca.co/ke',
     },
     {
@@ -38,16 +38,16 @@ function Products() {
 
   return (
     <div ref={ref} className={`products-container ${inView ? "animate" : ""}`}>
-      <h1 style={{ textAlign: 'center' }}>OUR PRODUCTS:</h1>
+      <h1 style={{ textAlign: 'center', color:"white", fontWeight:"300px", fontSize:"3em" }}>OUR PRODUCTS:</h1>
       <div className="carousel-container">
         {items.map((elem, index) => (
           <div className='carousel-item' key={index}>
-            <h3>{elem.name}</h3>
+            <h3 style={{color:"white"}}>{elem.name}</h3>
             <div className='description'>
               <p>{elem.description}</p>
             </div>
             <hr />
-            <p className='link-to'><a href={elem.url}>See project</a></p>
+            <p className='link-to'><a href={elem.url} className='underlined'>See project</a></p>
           </div>
         ))}
       </div>
