@@ -1,6 +1,6 @@
 // import React from "react";
 import "./components.css";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Navbar(){
     const elements = [
