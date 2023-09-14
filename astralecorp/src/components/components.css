@@ -184,6 +184,9 @@ body{
     justify-content: space-between;
     display: flex;
 }
+.contact-info div{
+    margin:auto;
+}
 .corp-info > a{
     text-decoration:none;
     color:rgb(195, 182, 182);
@@ -442,7 +445,7 @@ body{
     }
 }
 @media screen and (max-width:719px) {
-    .contact-info, .about, .features{
+    .about, .features{
         display: block;
     }
     .about{

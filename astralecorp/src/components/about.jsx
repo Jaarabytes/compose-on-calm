@@ -30,12 +30,7 @@ function About(){
         </div>
 
         <div className="contact-info">
-            <div className="questions">
-                <a href="#"><p>2023 Astralecorp inc.</p></a>
-                <a href="#"><p>Privacy</p></a>
-                <a href="#"><p>Terms & Conditions</p></a>
-                <a href="#"><p>Marketing</p></a>
-            </div>
+            
             <div className="icons">
                 <div>
                 <a href="https://instagram.com/astralecorp" className="links"><i className="fab fa-instagram"></i></a>
