@@ -1,10 +1,15 @@
-# Cocalm
+# Compose on Calm
 
-Watermark videos in your browser. Zero server code needed.
+We teach, build and compose classical music.
 
-**Tips**: (I will fix these soon)
-- Ignore the `svelte` branch
-- Ignore the `failed production deployment`
+We accept all possible contributions :
+
+* Machine learning engineers are highly welcomed.
+* Developers
+* Security and Cloud Engineers
+* Idealists
+* Baroque Music Lovers & enjoyers
+
 
 ## Installation
 
