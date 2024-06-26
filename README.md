@@ -1,10 +1,15 @@
-# Astral Ecorp
+# Compose on Calm
 
-We collaborate to connect, build, and enhance web applications with:
+We teach, build and compose classical music.
 
+We accept all possible contributions :
+
+* Machine learning engineers are highly welcomed.
 * Developers
-* Designers
 * Security and Cloud Engineers
+* Idealists
+* Baroque Music Lovers & enjoyers
+
 
 Reach out to us:
 
