@@ -13,5 +13,5 @@ We accept all possible contributions :
 
 Reach out to us:
 
-* [Our Website](https://astralecorp.vercel.app)
-* [Contact Page](https://astralecorp.vercel.app/contact)
+* [Our Website](https://cocalm.vercel.app)
+* [Contact Page](https://cocalm.vercel.app/contact)
