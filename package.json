@@ -24,6 +24,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"netlify-cli": "^17.29.0"
+		"netlify-cli": "^17.29.0",
+		"svelte-paystack": "^0.2.2"
 	}
 }
