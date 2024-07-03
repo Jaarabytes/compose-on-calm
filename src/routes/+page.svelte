@@ -10,7 +10,7 @@
 </script>
 
 <!-- This will be continued later, thank you -->
-<div class='sm:px-[20%]'>
+<div class='px-3 sm:px-[20%]'>
     <h1 class="text-[50px] font-extrabold my-3">Compose on calm.</h1>
     <p class="text-xl font-bold">Compose on calm helps enjoyers & idealists compose, create and listen to classical music.</p>
     <p class='my-5'>We are integrating Machine Learning models & python libraries for audio surgery and yes, you <b>CAN</b> compose with AI</p>
