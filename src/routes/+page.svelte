@@ -1,6 +1,8 @@
 <script>
-    import "../App.css"
-    // I need help, especially with the Machine Learning part
+  import "../App.css"
+  import Play from '$lib/components/Play.svelte' 
+  import { currentTrack } from "$lib/stores/musicStore"
+  // I need help, especially with the Machine Learning part
 
 // Tone.js: A powerful web audio library that makes working with the Web Audio API much easier, ideal for music composition.
     // Howler.js: A JavaScript library for working with audio files, providing a simple API for playback.
@@ -20,10 +22,16 @@
     <p class='my-5'>We are integrating Machine Learning models & python libraries for audio surgery and yes, you <b>CAN</b> compose with AI</p>
     <p class='my-5'>We will also <b>teach</b> you how to compose basic music patterns.</p>
     <p>Builders: </p>
-    {#each builders as builder, i}
+    {#each builders as builder}
         <li><a href={builder.x}>{builder.name}</a></li>
     {/each}
     <p class='my-5'>Contact us through X (formerly twitter) Dm's. </p>
     <p>We also accept <a href="/donate" class="font-bold">donations</a></p> 
-    <p class='my-3'>Listening to <a href="https://open.spotify.com/playlist/2qXjPCmMuGRlVDRRFFetAs?si=c81729c302b54fed"><b>this!</b></a></p>
+    {#if $currentTrack}
+      <p class='my-3'>You are currently listening to <span class="font-bold">{$currentTrack.name}</span></p>
+    {:else }
+      <p></p>
+    {/if}
 </div>
+
+<Play />
