@@ -16,7 +16,7 @@ const tracks = [
 export let currentTrack = writable({
   name: "Requiem Aranea", 
   link: "https://p.scdn.co/mp3-preview/0706a174add19c63c3b0eac4a7f066afe0f04c73?cid=cfe923b2d660439caf2b557b21f31221",
-  by: ""
+  by: "Wolfgang Amadeus Mozart"
 });
 
 // func that randomly picks any track;
@@ -31,4 +31,4 @@ function pickAndRoll() {
 }
 
 currentTrack.set(pickAndRoll());
-// find a way to update state with this above
+// find a way to update state with this above, DONE AND DUSTED

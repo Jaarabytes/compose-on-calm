@@ -21,6 +21,7 @@
     <p class="text-lg sm:text-xl font-bold">We help enjoyers & idealists compose, create and listen to classical music.</p>
     <p class='my-5'>We are integrating Machine Learning models & python libraries for audio surgery and yes, you <b>CAN</b> compose with AI</p>
     <p class='my-5'>We will also <b>teach</b> you how to compose basic music patterns.</p>
+    <p class='my-5'>We aren't limited to classical music only, there is more. We're working it.</p>
     <p>Builders: </p>
     {#each builders as builder}
         <li><a href={builder.x}>{builder.name}</a></li>
