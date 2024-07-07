@@ -28,7 +28,7 @@
     <p class='my-5'>Contact us through X (formerly twitter) Dm's. </p>
     <p>We also accept <a href="/donate" class="font-bold">donations</a></p> 
     {#if $currentTrack}
-      <p class='my-3'>You are currently listening to <span class="font-bold">{$currentTrack.name}</span></p>
+      <p class='my-3'>You are currently listening to <span class="font-bold">{$currentTrack.name}</span> by <b>{$currentTrack.by}</b></p>
     {:else }
       <p></p>
     {/if}
