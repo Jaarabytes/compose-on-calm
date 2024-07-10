@@ -9,7 +9,7 @@
 
  //   Also the librosa python libraryb
   const builders = [{ name: "Jaarabytes", x: 'https://x.com/Jaarabytes' }]
-  const musicTypes = [ "Nightcore/tiktok sped up" ,"hardstyle", "lo-fi" ]
+  const musicTypes = [ "Nightcore/tiktok sped up" ,"Hardstyle", "Lo-Fi" ]
 </script>
 
 <svelte:head>
