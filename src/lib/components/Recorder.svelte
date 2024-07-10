@@ -6,6 +6,7 @@
     },
     audio: false,
   };
+  const steps = ["Play music in another tab", "Mute the music", "Wait 10 seconds" , "Click the below button"]
     async function startRecording () {
     try {
     audioElem.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
@@ -18,7 +19,8 @@
 </script>
 
 <div class="my-5">
-  <audio controls id='tracks' bind:this={audioElem}/>
-    <p>Play music in another tab and click the below button! </p>
-  <button on:click={startRecording} class="my-5 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-700">Stop recording</button>
+  {#each steps as step}
+    <li>{step}</li>
+  {/each}
+  <button on:click={startRecording} class="my-5 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-700">Click me!</button>
 </div>
