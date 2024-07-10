@@ -8,7 +8,8 @@
     // Howler.js: A JavaScript library for working with audio files, providing a simple API for playback.
 
  //   Also the librosa python libraryb
-    const builders = [{ name: "Jaarabytes", x: 'https://x.com/Jaarabytes' }]
+  const builders = [{ name: "Jaarabytes", x: 'https://x.com/Jaarabytes' }]
+  const musicTypes = [ "Nightcore/tiktok sped up" ,"hardstyle", "lo-fi" ]
 </script>
 
 <svelte:head>
@@ -18,16 +19,12 @@
 <!-- This will be continued later, thank you -->
 <div class='px-3 sm:px-[20%]'>
     <h1 class="text-3xl sm:text-[50px] font-extrabold my-5">Compose on calm.</h1>
-    <p class="text-lg sm:text-xl font-bold">We help enjoyers & idealists compose, create and listen to classical music.</p>
-    <p class='my-5'>We are integrating Machine Learning models & python libraries for audio surgery and yes, you <b>CAN</b> compose with AI</p>
-    <p class='my-5'>We will also <b>teach</b> you how to compose basic music patterns.</p>
-    <p class='my-5'>We aren't limited to classical music only, there is more. We're working it.</p>
-    <p>Builders: </p>
-    {#each builders as builder}
-        <li><a href={builder.x}>{builder.name}</a></li>
+    <p class='my-5'>I'm currently focusing on how to create the following music versions:</p>
+    {#each musicTypes as musicType}
+        <li>{musicType}</li>
     {/each}
-    <p class='my-5'>Contact us through X (formerly twitter) Dm's. </p>
-    <p>We also accept <a href="/donate" class="font-bold">donations</a></p> 
+    <p class='my-5'>Contact me through <a href='https://x.com/Jaarabytes'>X (formerly twitter) Dm's.</a> </p>
+    <p>I also accept <a href="/donate" class="font-bold">donations</a></p> 
     {#if $currentTrack}
       <p class='my-3'>You are currently listening to <span class="font-bold">{$currentTrack.name}</span> by <b>{$currentTrack.by}</b></p>
     {:else }
