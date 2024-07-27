@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useRef, useState } from 'react';
-import { fetchFile, toBlobURL } from '@ffmpeg/util';
+import { toBlobURL } from '@ffmpeg/util';
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
   const ffmpegRef  = useRef(new FFmpeg());
   
-  const audioRef  = useRef(null);
+  // create a default audio template that users can edit on
   const messageRef  = useRef(null);
   
   const load = async () => {
@@ -30,11 +30,14 @@ function App() {
     setLoaded(true)
   }
   
-  const changeVolume = async (file) => {
-    const ffmpeg = ffmpegRef.current;
+  const changeVolume = async () => {
+    try {
+     const ffmpeg = ffmpegRef.current;
+
 
     const inputFile = `Input.${audio.name.substr(audio.name.lastIndexOf("."))}`
     const outputFile = `Output.${audio.name.substr(audio.name.lastIndexOf("."))}`
+
 
     const arrayBuffer = await audio.arrayBuffer();
 
@@ -43,24 +46,20 @@ function App() {
     const data = await ffmpeg.readFile('output.mp3')
     const url = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp3"}))
     setResult(url)
+    }
+    catch ( err ) {
+      console.error(`Error occured during volume reduction: ${err}`);
+      messageRef.current.innerHTML = `Error: ${err.message}`;
+    }
 
   }
-
-  const doTranscode = async () => {
-    const ffmpeg = ffmpegRef.current;
-    await ffmpeg.writeFile('input.webm', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm'))
-   await ffmpeg.exec(['-i', 'input.webm', 'output.mp4']);
-    const data = await ffmpeg.readFile('output.mp4')
-    audioRef.current.src = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp4"}))
-  }
-
   return loaded ? (
     <div className="App">
     {audio && <audio src={URL.createObjectURL(audio)} />}
       <input type='file' onChange={(e) => setAudio(e.target.files?.item(0))} controls /><br/>
       <button onClick={changeVolume}>Start</button>
       <p>Press Ctrl + shift + I, to check the logs</p>
-    <h3>Result</h3>
+    <h3>Logs: </h3>
     {result && <audio src={changeVolume}/>}
       <p ref={messageRef}></p>
     </div>
