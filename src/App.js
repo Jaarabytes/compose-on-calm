@@ -40,6 +40,32 @@ function App() {
     load();
   }, [])
 
+
+  const reduceNoise = async () => {
+    try {
+     const ffmpeg = ffmpegRef.current;
+
+
+    const inputFile = `Input.${audio.name.substr(audio.name.lastIndexOf("."))}`
+    const outputFile = `Output.${audio.name.substr(audio.name.lastIndexOf("."))}`
+
+    console.log(`Noise reduction started!`)
+    const arrayBuffer = await audio.arrayBuffer();
+
+    await ffmpeg.writeFile(inputFile, new Uint8Array(arrayBuffer));
+    // why the exact values, -> https://superuser.com/a/835585
+    await ffmpeg.exec(["-i", inputFile, "-af", `highpass=f=200`, `lowpass=f=3000`, outputFile]);
+    const data = await ffmpeg.readFile(outputFile)
+    const url = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp3"}))
+    console.log(`Noise reduction complete`)
+    setResult(url)
+    }
+    catch ( err ) {
+      console.log(`Error occured during noise reduction: ${err}`);
+      messageRef.current.innerHTML = `Error: ${err.message}`;
+    }
+
+
   const changeVolume = async () => {
     try {
      const ffmpeg = ffmpegRef.current;
@@ -78,6 +104,7 @@ function App() {
       <input type='file' onChange={(e) => setAudio(e.target.files?.item(0))} /><br/>
       { changeVolumeSlider && (<><input type='range' min='0' max='100' value={range}  style={{}} /><p>Selected volume: {range}</p></>)}
       <button onClick={changeVolume}>Change Volume</button>
+      <button onClick={reduceNoise}>Reduce Noise</button>
       <p>Press Ctrl + shift + I, to check the logs</p>
     <h3>Logs: </h3>
     {result && <audio src={result} controls />}
