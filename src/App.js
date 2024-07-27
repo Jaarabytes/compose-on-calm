@@ -1,18 +1,24 @@
 import './App.css';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toBlobURL } from '@ffmpeg/util';
 import { FFmpeg } from '@ffmpeg/ffmpeg'
+import { FaPlay } from 'react-icons/fa'
+
 
 function App() {
 
   const [loaded, setLoaded ] = useState(false);
   const [ audio, setAudio ] = useState();
   const [ result, setResult ] = useState();
+  const [ range, setRange ] = useState(50);
+
 
   const ffmpegRef  = useRef(new FFmpeg());
   
   // create a default audio template that users can edit on
   const messageRef  = useRef(null);
+
+  const [ changeVolumeSlider, showChangeVolumeSlider ] = useState(false);
   
   const load = async () => {
     const baseUrl = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
@@ -29,7 +35,11 @@ function App() {
 
     setLoaded(true)
   }
-  
+  // wasm + ffmpeg binaries should load first (asynchronously)
+  useEffect(() => {
+    load();
+  }, [])
+
   const changeVolume = async () => {
     try {
      const ffmpeg = ffmpegRef.current;
@@ -42,7 +52,7 @@ function App() {
     const arrayBuffer = await audio.arrayBuffer();
 
     await ffmpeg.writeFile(inputFile, new Uint8Array(arrayBuffer));
-    await ffmpeg.exec(["-i", inputFile, "-filter:a", `volume=0.25`, outputFile]);
+    await ffmpeg.exec(["-i", inputFile, "-filter:a", `volume=0.05`, outputFile]);
     const data = await ffmpeg.readFile(outputFile)
     const url = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp3"}))
     console.log(`Conversion complete`)
@@ -53,17 +63,27 @@ function App() {
       messageRef.current.innerHTML = `Error: ${err.message}`;
     }
 
+
+  const handleClick = () => {
+    showChangeVolumeSlider(true);
   }
+
+  const handleRange = (event) => {
+    setRange(event.target.value);
+  }
+  
+   }
   return loaded ? (
     <div className="App">
       <input type='file' onChange={(e) => setAudio(e.target.files?.item(0))} /><br/>
-      <button onClick={changeVolume}>Start</button>
+      { changeVolumeSlider && (<><input type='range' min='0' max='100' value={range}  style={{}} /><p>Selected volume: {range}</p></>)}
+      <button onClick={changeVolume}>Change Volume</button>
       <p>Press Ctrl + shift + I, to check the logs</p>
     <h3>Logs: </h3>
     {result && <audio src={result} controls />}
-      <p ref={messageRef}></p>
+      <p style={{color: "red"}} ref={messageRef}></p>
     </div>
-  ) : (<button onClick={load}>Load resources? (31 MB)</button>);
+  ) : (<p style={{}}>Loading ... </p>);
 }
 
 export default App;
