@@ -1,31 +1,51 @@
-import React, { useState } from 'react';
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 import './App.css';
+import React, { useRef, useState } from 'react';
+import { fetchFile, toBlobURL } from '@ffmpeg/util';
+import { FFmpeg } from '@ffmpeg/ffmpeg'
+
 
 function App() {
-  const [videoSrc, setVideoSrc] = useState('');
-  const [message, setMessage] = useState('Click Start to transcode');
-  const ffmpeg = createFFmpeg({
-    log: true,
-  });
+
+  const [loaded, setLoaded ] = useState(false);
+
+  const ffmpegRef  = useRef(new FFmpeg());
+  
+  const videoRef  = useRef(null);
+  const messageRef  = useRef(null);
+  
+  const load = async () => {
+    const baseUrl = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
+    const ffmpeg = ffmpegRef.current;
+    ffmpeg.on('log', ({ message }) => {
+      messageRef.current.innerHTML = message;
+      console.log(message);
+    })
+
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseUrl}/ffmpeg-core.js`, `text/javascript`),
+      wasmURL: await toBlobURL(`${baseUrl}/ffmpeg-core.wasm`, `application/wasm`)
+    })
+
+    setLoaded(true)
+  }
+
   const doTranscode = async () => {
-    setMessage('Loading ffmpeg-core.js');
-    await ffmpeg.load();
-    setMessage('Start transcoding');
-    ffmpeg.FS('writeFile', 'test.avi', await fetchFile('/flame.avi'));
-    await ffmpeg.run('-i', 'test.avi', 'test.mp4');
-    setMessage('Complete transcoding');
-    const data = ffmpeg.FS('readFile', 'test.mp4');
-    setVideoSrc(URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' })));
-  };
-  return (
+    const ffmpeg = ffmpegRef.current;
+    await ffmpeg.writeFile('input.webm', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm'))
+   await ffmpeg.exec(['-i', 'input.webm', 'output.mp4']);
+    const data = await ffmpeg.readFile('output.mp4')
+    videoRef.current.src = URL.createObjectURL(new Blob([data.buffer], {type: "video/mp4"}))
+  }
+
+
+  return loaded ? (
     <div className="App">
       <p/>
-      <video src={videoSrc} controls></video><br/>
+      <video ref={videoRef} controls></video><br/>
       <button onClick={doTranscode}>Start</button>
-      <p>{message}</p>
+      <p ref={messageRef}></p>
     </div>
-  );
+  ) : (<button onClick={load}>Load resources? (31 MB)</button>);
 }
 
 export default App;
