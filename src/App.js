@@ -3,14 +3,15 @@ import React, { useRef, useState } from 'react';
 import { fetchFile, toBlobURL } from '@ffmpeg/util';
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 
-
 function App() {
 
   const [loaded, setLoaded ] = useState(false);
+  const [ audio, setAudio ] = useState();
+  const [ result, setResult ] = useState();
 
   const ffmpegRef  = useRef(new FFmpeg());
   
-  const videoRef  = useRef(null);
+  const audioRef  = useRef(null);
   const messageRef  = useRef(null);
   
   const load = async () => {
@@ -20,7 +21,7 @@ function App() {
       messageRef.current.innerHTML = message;
       console.log(message);
     })
-
+     // This just prevents the CORS error. Please i wasted 3-5 hours on this. I should have read the docs.
     await ffmpeg.load({
       coreURL: await toBlobURL(`${baseUrl}/ffmpeg-core.js`, `text/javascript`),
       wasmURL: await toBlobURL(`${baseUrl}/ffmpeg-core.wasm`, `application/wasm`)
@@ -28,21 +29,39 @@ function App() {
 
     setLoaded(true)
   }
+  
+  const changeVolume = async (file) => {
+    const ffmpeg = ffmpegRef.current;
+
+    const inputFile = `Input.${audio.name.substr(audio.name.lastIndexOf("."))}`
+    const outputFile = `Output.${audio.name.substr(audio.name.lastIndexOf("."))}`
+
+    const arrayBuffer = await audio.arrayBuffer();
+
+    await ffmpeg.writeFile(inputFile, new Uint8Array(arrayBuffer));
+    await ffmpeg.exec(["-i", inputFile, "-filter:a", `volume=0.25`, outputFile]);
+    const data = await ffmpeg.readFile('output.mp3')
+    const url = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp3"}))
+    setResult(url)
+
+  }
 
   const doTranscode = async () => {
     const ffmpeg = ffmpegRef.current;
     await ffmpeg.writeFile('input.webm', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm'))
    await ffmpeg.exec(['-i', 'input.webm', 'output.mp4']);
     const data = await ffmpeg.readFile('output.mp4')
-    videoRef.current.src = URL.createObjectURL(new Blob([data.buffer], {type: "video/mp4"}))
+    audioRef.current.src = URL.createObjectURL(new Blob([data.buffer], {type: "audio/mp4"}))
   }
-
 
   return loaded ? (
     <div className="App">
-      <p/>
-      <video ref={videoRef} controls></video><br/>
-      <button onClick={doTranscode}>Start</button>
+    {audio && <audio src={URL.createObjectURL(audio)} />}
+      <input type='file' onChange={(e) => setAudio(e.target.files?.item(0))} controls /><br/>
+      <button onClick={changeVolume}>Start</button>
+      <p>Press Ctrl + shift + I, to check the logs</p>
+    <h3>Result</h3>
+    {result && <audio src={changeVolume}/>}
       <p ref={messageRef}></p>
     </div>
   ) : (<button onClick={load}>Load resources? (31 MB)</button>);
