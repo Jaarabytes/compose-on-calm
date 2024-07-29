@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { toBlobURL } from '@ffmpeg/util';
 import { FFmpeg } from '@ffmpeg/ffmpeg'
+import { SpinningAtom } from './SpinningAtom';
 
 function App() {
 
@@ -215,7 +216,7 @@ const addReverb = async () => {
     {result && <audio src={result} controls />}
       <p ref={messageRef}></p>
     </div>
-  ) : (<p style={{}}>Loading ... </p>);
+  ) : (<SpinningAtom />);
 }
 
 
