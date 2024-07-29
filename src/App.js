@@ -2,8 +2,6 @@ import './App.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { toBlobURL } from '@ffmpeg/util';
 import { FFmpeg } from '@ffmpeg/ffmpeg'
-import { FaPlay } from 'react-icons/fa'
-
 
 function App() {
 
@@ -64,6 +62,7 @@ function App() {
       console.log(`Error occured during noise reduction: ${err}`);
       messageRef.current.innerHTML = `Error: ${err.message}`;
     }
+  }
 
 
   const changeVolume = async () => {
@@ -88,17 +87,8 @@ function App() {
       console.log(`Error occured during volume reduction: ${err}`);
       messageRef.current.innerHTML = `Error: ${err.message}`;
     }
-
-
-  const handleClick = () => {
-    showChangeVolumeSlider(true);
-  }
-
-  const handleRange = (event) => {
-    setRange(event.target.value);
-  }
-  
    }
+
   return loaded ? (
     <div className="App">
       <input type='file' onChange={(e) => setAudio(e.target.files?.item(0))} /><br/>
@@ -112,5 +102,6 @@ function App() {
     </div>
   ) : (<p style={{}}>Loading ... </p>);
 }
+
 
 export default App;
