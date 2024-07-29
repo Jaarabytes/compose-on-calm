@@ -2,6 +2,10 @@
 
 Edit audio files in your browser. Zero server code needed.
 
+**Tips**: (I will fix these soon)
+- Ignore the `svelte` branch
+- Ignore the `failed production deployment`
+
 ## Installation
 
 Prerequisites:
