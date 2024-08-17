@@ -2,9 +2,9 @@
 
 Watermark videos in your browser. Zero server code needed.
 
-**Tips**: (I will fix these soon)
-- Ignore the `svelte` branch
-- Ignore the `failed production deployment`
+## Development
+
+**NOTE:** Do not update the packages. FFmpeg wasm of versions `0.12.6` only works in nextjs and nodejs environments
 
 ## Installation
 
@@ -24,6 +24,13 @@ Proceed to check `localhost:3000` on your local browser
 ## Contributions
 
 Keep them to yourself.
+
+## TODO
+
+- Fix the `svelte` branch
+- Add positioning  of watermark text
+- Add uploading of images as watermarks
+- Configure transparency
 
 ## TL;DR
 
