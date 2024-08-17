@@ -59,7 +59,7 @@ const addWatermark = async () => {
 
     // Log the start of watermark addition
     console.log(`Adding watermark text`);
-    setVideoUrl(URL.createObjectURL((video)))
+    setVideoUrl(URL.createObjectURL(video))
     await ffmpeg.writeFile('input.mp4', await fetchFile(videoUrl));
     await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/arial.ttf'));
     // Apply watermark with drawtext filter
@@ -105,7 +105,7 @@ const addWatermark = async () => {
       <input type='file' ref={fileInputRef} style={{display: "none"}} onChange={(e) => setVideo(e.target.files?.item(0))} />
       </div>
       
-      <a href={video} target="_blank" rel="noopener noreferrer" download={generateRandomFileName()}>
+      <a href={video} target="_blank" rel="noopener noreferrer" download={generateRandomFileName}>
       <button className='fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded' style={{cursor: "pointer"}}>
         <Download className='h-10 w-10' />
        </button>
