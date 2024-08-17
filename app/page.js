@@ -54,11 +54,11 @@ const addWatermark = async () => {
     // Log the start of watermark addition
     console.log(`Adding watermark text`);
 
-    await ffmpeg.writeFile('input.webm', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/Big_Buck_Bunny_180_10s.webm'));
+    await ffmpeg.writeFile('input.mp4', await fetchFile(URL.createObjectURL(video)));
     await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/arial.ttf'));
     // Apply watermark with drawtext filter
     await ffmpeg.exec([
-      "-i", 'input.webm',
+      "-i", 'input.mp4',
       "-vf", `drawtext=fontfile=/arial.ttf:text=\'${watermarkText}\':x=10:y=10:fontsize=24:fontcolor=white`,
       'output.mp4'
     ]);
