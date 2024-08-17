@@ -10,6 +10,7 @@ import { SpinningAtom } from './components/SpinningAtom';
 // why is the main app this bloated? Trust me I'm trying to decentralize this thing. I need these function elsewhere but we can't all be winners
 export default function App() {
   const [ loaded, setLoaded ] = useState(false);
+  const [watermarkText, setWatermarkText] = useState('Your watermark text here')
   const [video, setVideo ] = useState();
   const videoRef = useRef(null);
   const messageRef  = useRef(null);
@@ -41,7 +42,11 @@ const GenerateRandomFileName = () => {
   return `${names[index]}.mp4`
 }
 
-const WaterMarkWithText = async () => {
+const handleWatermarkText = (event) => {
+  setWatermarkText(event.target.value);
+}
+
+const addWatermark = async () => {
   try {
     const ffmpeg = ffmpegRef.current;
     if (!ffmpeg) throw new Error("FFmpeg instance not initialized");
@@ -54,7 +59,7 @@ const WaterMarkWithText = async () => {
     // Apply watermark with drawtext filter
     await ffmpeg.exec([
       "-i", 'input.webm',
-      "-vf", "drawtext=fontfile=/arial.ttf:text=\'Your Watermark Text Here\':x=10:y=10:fontsize=24:fontcolor=white",
+      "-vf", `drawtext=fontfile=/arial.ttf:text=\'${watermarkText}\':x=10:y=10:fontsize=24:fontcolor=white`,
       'output.mp4'
     ]);
 
@@ -78,15 +83,18 @@ const WaterMarkWithText = async () => {
         <div className='App flex justify-center'>
         {video && <video src={URL.createObjectURL(video)} width={250} controls />}
         </div>
-        <button onClick={WaterMarkWithText} className='p-4 rounded-lg bg-blue-500 text-white my-5 hover:bg-blue-700'>Click me!</button>
+        <p><b>Water mark text:</b> {watermarkText}</p>
+        <button onClick={() => addWatermark(watermarkText)} className='p-4 rounded-lg bg-blue-500 text-white my-5 hover:bg-blue-700'>Click me!</button>
       <h2 className='text-2xl font-bold my-5'>Result Video: </h2>
         <div className='flex justify-center'>
         <video ref={videoRef} width={250} controls />
         </div>
     </div>
 
-      <button className='fixed bottom-4 left-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded' >Generate</button>
-      <input className='fixed bottom-20 left-4 text-black bg-white p-2 rounded-lg' placeholder='add watermark' />
+      <button className='fixed bottom-4 left-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded'>Generate</button>
+      <input className='fixed bottom-20 left-4 border-2 border-blue-500 text-black bg-white p-2 rounded-lg' placeholder='add watermark'
+        value={watermarkText} onChange={handleWatermarkText}
+        />
       <label className='fixed top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded'>
   <Upload className='h-10 w-10' />
   <input className='hidden' />
