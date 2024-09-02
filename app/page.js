@@ -103,6 +103,7 @@ const addWatermark = async () => {
         <p><b>Water mark text:</b><br /> {watermarkText}</p>
         <button onClick={() => addWatermark(watermarkText)} className='p-4 rounded-lg bg-blue-500 text-white my-5 hover:bg-blue-700'>Convert !</button>
       <p ref={messageRef}></p>
+      <p className='font-bold '>If it says 'undefined', just click it again</p>
       <h2 className='text-2xl font-bold my-5'>Result Video: </h2>
         <div className='flex justify-center'>
         {videoRef && <video ref={videoRef} width={250} controls />}
