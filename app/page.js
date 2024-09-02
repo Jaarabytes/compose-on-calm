@@ -22,7 +22,8 @@ export default function App() {
     const baseUrl = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
     const ffmpeg = ffmpegRef.current;
     ffmpeg.on('log', ({ message }) => {
-      console.log(message);
+       messageRef.current.innerHTML = message;
+        console.log(message);
     })
      // This just prevents the CORS error. Please i wasted 3-5 hours on this. I should have read the docs.
     await ffmpeg.load({
@@ -52,6 +53,16 @@ const handleWatermarkText = (event) => {
   setWatermarkText(event.target.value);
 }
 
+const handleDownload = () => {
+  if (videoRef.current) {
+    const videoSrc = videoRef.current.currentSrc;
+    const link = document.createElement('a');
+    link.href = videoSrc;
+    link.download = generateRandomFileName(); 
+    link.click();
+  }
+}
+
 const addWatermark = async () => {
   try {
     const ffmpeg = ffmpegRef.current;
@@ -62,6 +73,7 @@ const addWatermark = async () => {
     setVideoUrl(URL.createObjectURL(video))
     await ffmpeg.writeFile('input.mp4', await fetchFile(videoUrl));
     await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/arial.ttf'));
+    const outputFileName = generateRandomFileName();
     // Apply watermark with drawtext filter
     await ffmpeg.exec([
       "-i", 'input.mp4',
@@ -89,7 +101,8 @@ const addWatermark = async () => {
         {video && <video src={URL.createObjectURL(video)} width={250} controls />}
         </div>
         <p><b>Water mark text:</b><br /> {watermarkText}</p>
-        <button onClick={() => addWatermark(watermarkText)} className='p-4 rounded-lg bg-blue-500 text-white my-5 hover:bg-blue-700'>Click me!</button>
+        <button onClick={() => addWatermark(watermarkText)} className='p-4 rounded-lg bg-blue-500 text-white my-5 hover:bg-blue-700'>Convert !</button>
+      <p ref={messageRef}></p>
       <h2 className='text-2xl font-bold my-5'>Result Video: </h2>
         <div className='flex justify-center'>
         {videoRef && <video ref={videoRef} width={250} controls />}
@@ -105,11 +118,12 @@ const addWatermark = async () => {
       <input type='file' ref={fileInputRef} style={{display: "none"}} onChange={(e) => setVideo(e.target.files?.item(0))} />
       </div>
       
-      <a href={video} target="_blank" rel="noopener noreferrer" download={generateRandomFileName}>
-      <button className='fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded' style={{cursor: "pointer"}}>
+      <button className='fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded'
+        style={{cursor: "pointer"}}
+        onClick={handleDownload}
+        >
         <Download className='h-10 w-10' />
        </button>
-      </a>
     </>
   ) : (<SpinningAtom />);
 }
