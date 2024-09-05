@@ -5,7 +5,6 @@ import { toBlobURL, fetchFile } from '@ffmpeg/util';
 import { FFmpeg } from "@ffmpeg/ffmpeg"
 import { Download, Upload } from 'lucide-react';
 import { SpinningAtom } from './components/SpinningAtom';
-import { document } from 'postcss';
 
 // project is converted to one where users can watermark video files
 export default function App() {
@@ -53,16 +52,6 @@ const handleWatermarkText = (event) => {
   setWatermarkText(event.target.value);
 }
 
-const handleDownload = () => {
-  if (videoRef.current) {
-    const videoSrc = videoRef.current.currentSrc;
-    const link = document.createElement('a');
-    link.href = videoSrc;
-    link.download = generateRandomFileName(); 
-    link.click();
-  }
-}
-
 const addWatermark = async () => {
   try {
     const ffmpeg = ffmpegRef.current;
@@ -73,7 +62,6 @@ const addWatermark = async () => {
     setVideoUrl(URL.createObjectURL(video))
     await ffmpeg.writeFile('input.mp4', await fetchFile(videoUrl));
     await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/arial.ttf'));
-    const outputFileName = generateRandomFileName();
     // Apply watermark with drawtext filter
     await ffmpeg.exec([
       "-i", 'input.mp4',
@@ -119,12 +107,13 @@ const addWatermark = async () => {
       <input type='file' ref={fileInputRef} style={{display: "none"}} onChange={(e) => setVideo(e.target.files?.item(0))} />
       </div>
       
+      <a href={videoUrl} download>      
       <button className='fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 rounded'
         style={{cursor: "pointer"}}
-        onClick={handleDownload}
         >
         <Download className='h-10 w-10' />
        </button>
+      </a>
     </>
   ) : (<SpinningAtom />);
 }

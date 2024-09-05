@@ -9,10 +9,22 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 3.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
+@keyframes App-logo-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  92.73% {
+    transform: rotate(300deg);
+    animation-timing-function: linear;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -26,13 +38,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
